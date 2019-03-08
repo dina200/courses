@@ -1,6 +1,7 @@
 package org.courses;
 
 import org.courses.commands.Command;
+import org.courses.commands.jdbc.AddTypeCommand;
 import org.courses.commands.jdbc.CreateDb;
 import org.courses.commands.jdbc.CreateTable;
 
@@ -14,6 +15,7 @@ public class Program {
         commands = new HashMap<>();
         commands.put("connect", new CreateDb());
         commands.put("table", new CreateTable());
+        commands.put("addtype", new AddTypeCommand());
     }
 
     public static void main(String[] args) {
