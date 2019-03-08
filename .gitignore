@@ -1,0 +1,61 @@
+# Dev specific folders #
+########################
+bin/
+obj/
+Bin/
+Obj/
+BIN/
+OBJ/
+.vs/
+.idea/
+dist/
+build/
+target/
+generated/
+TestResults/
+
+# Dev specific files #
+######################
+*.suo
+*.user
+*.pdb
+*.cache
+*_svn
+*.svn
+*.suo
+*.build-res
+*.iml
+tst.log
+_ReSharper*
+tst.log
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.war
+*.rar
+*.tar
+*.zip
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
