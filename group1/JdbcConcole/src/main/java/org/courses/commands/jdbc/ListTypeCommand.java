@@ -2,12 +2,12 @@ package org.courses.commands.jdbc;
 
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
-import org.courses.domain.jdbc.Type;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AddTypeCommand extends AbstractQueryCommand implements Command {
-    private String typeName;
+public class ListTypeCommand extends AbstractQueryCommand implements Command {
+    private String filter;
 
     @Override
     public void parse(String[] args) {
@@ -19,25 +19,27 @@ public class AddTypeCommand extends AbstractQueryCommand implements Command {
         }
 
         if (args.length > 1) {
-            typeName = args[1];
+            filter = args[1];
         }
         else {
-            throw new CommandFormatException("Type name is not specified");
+            filter = "1 = 1";
         }
+
     }
 
     @Override
     public void execute() {
         try {
-            Type t = new Type();
-            t.setTypeName(typeName);
-            insert(t);
-            //insert("Type", "name", String.format("'%s'", typeName));
+            ResultSet results = select("Type", "id, name", filter);
+            while (results.next()) {
+                System.out.println(String.format(
+                        "%d\t%s",
+                        results.getInt("id"),
+                        results.getString("name")));
+            }
+            results.close();
         }
         catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
