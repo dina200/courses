@@ -4,19 +4,18 @@ import javax.persistence.*;
 import javax.persistence.Column;
 
 @Entity(name = "Type")
-public class Type extends BaseEntity {
-    @Id
+public class SockType extends BaseEntity {
     @Column(name = "id")
     private int id;
 
     @Column(name = "name")
     private String typeName;
 
-    public Type() {
+    public SockType() {
 
     }
 
-    public Type(int id, String typeName) {
+    public SockType(int id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
@@ -29,11 +28,11 @@ public class Type extends BaseEntity {
         this.id = id;
     }
 
-    public String getTypeName() {
+    public String getName() {
         return typeName;
     }
 
-    public void setTypeName(String typeName) {
+    public void setName(String typeName) {
         this.typeName = typeName;
     }
 }

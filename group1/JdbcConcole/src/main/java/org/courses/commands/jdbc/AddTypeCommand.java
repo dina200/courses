@@ -2,7 +2,6 @@ package org.courses.commands.jdbc;
 
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
-import org.courses.domain.jdbc.Type;
 
 import java.sql.SQLException;
 
@@ -29,15 +28,9 @@ public class AddTypeCommand extends AbstractQueryCommand implements Command {
     @Override
     public void execute() {
         try {
-            Type t = new Type();
-            t.setTypeName(typeName);
-            insert(t);
-            //insert("Type", "name", String.format("'%s'", typeName));
+            insert("Type", "name", String.format("'%s'", typeName));
         }
         catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }

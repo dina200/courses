@@ -1,11 +1,13 @@
 package org.courses;
 
+import org.courses.DAO.Type;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
 import org.courses.commands.jdbc.*;
 import org.apache.tools.ant.types.Commandline;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,9 +32,17 @@ public class Program {
 
         greetUser();
         while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            parseUserInput(line);
-            greetUser();
+            Connection con = ConnectionManager.getConnection("test.db");
+            Type dao = new Type("SomeType",con);
+            try {
+                dao.Save();
+            }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+            //String line = scanner.nextLine();
+            //parseUserInput(line);
+            //greetUser();
         }
     }
 
