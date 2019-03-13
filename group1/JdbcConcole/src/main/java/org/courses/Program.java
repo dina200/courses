@@ -1,19 +1,17 @@
 package org.courses;
 
-import org.courses.DAO.Type;
+import org.apache.tools.ant.types.Commandline;
+import org.courses.DAO.operations.TypeOperation;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
 import org.courses.commands.jdbc.*;
-import org.apache.tools.ant.types.Commandline;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Program {
-    static Map<String, Command> commands;
+    private static Map<String, Command> commands;
 
     static {
         commands = new HashMap<>();
@@ -28,26 +26,25 @@ public class Program {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+//        Scanner scanner = new Scanner(System.in);
 
-        greetUser();
-        while (scanner.hasNext()) {
-            Connection con = ConnectionManager.getConnection("test.db");
-            Type dao = new Type("SomeType",con);
-            try {
-                dao.Save();
-            }
-            catch (Exception e) {
-                System.out.println(e);
-            }
-            //String line = scanner.nextLine();
-            //parseUserInput(line);
-            //greetUser();
+//        greetUser();
+//        while (scanner.hasNext()) {
+//            String line = scanner.nextLine();
+//            parseUserInput(line);
+//            greetUser();
+//        }
+        Connection con = ConnectionManager.getConnection("test.db");
+        TypeOperation commands = new TypeOperation(con);
+        try {
+            System.out.println(commands.ReadAll());
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     private static void parseUserInput(String input) {
-        String userCommand[] = Commandline.translateCommandline(input);
+        String[] userCommand = Commandline.translateCommandline(input);
 
         String commandName = userCommand[0];
         String[] params = new String[userCommand.length - 1];
@@ -55,11 +52,9 @@ public class Program {
 
         try {
             executeCommand(commandName, params);
-        }
-        catch (CommandFormatException e) {
+        } catch (CommandFormatException e) {
             System.out.println(String.format("%s has some invalid arguments", commandName));
-        }
-        catch (NotImplementedException e) {
+        } catch (RuntimeException e) { // Error: package sun.reflect.generics.reflectiveObjects does not exist; java: cannot find class NotImplementedException
             System.out.println(String.format("Unknown command %s", commandName));
         }
     }
@@ -68,7 +63,7 @@ public class Program {
         Command command = commands.get(commandName);
 
         if (null == command)
-            throw new NotImplementedException();
+            throw new RuntimeException();
 
         command.parse(params);
         command.execute();

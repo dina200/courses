@@ -11,7 +11,7 @@ import java.util.Collection;
 
 public class StaticDAOOperation {
 
-  public static   int insert(BaseEntity entity, Connection con) throws IllegalAccessException, SQLException {
+    public static int insert(BaseEntity entity, Connection con) throws IllegalAccessException, SQLException {
         String table = entity.getName();
         StringBuilder columns = new StringBuilder();
         StringBuilder values = new StringBuilder();
@@ -28,15 +28,15 @@ public class StaticDAOOperation {
             if (null == value)
                 values.append("NULL");
             else if (value instanceof String)
-                values.append(String.format("'%s'", (String)value));
+                values.append(String.format("'%s'", (String) value));
             else
                 values.append(value.toString());
         }
 
-       return  insert(table, columns.toString(), values.toString(),con);
+        return insert(table, columns.toString(), values.toString(), con);
     }
 
-    static  int insert(String table, String columns, String values, Connection con) throws SQLException {
+    static int insert(String table, String columns, String values, Connection con) throws SQLException {
         Statement statement = con.createStatement();
         statement.execute(String.format("INSERT INTO %s" +
                 "(%s) " +
@@ -47,7 +47,7 @@ public class StaticDAOOperation {
         //return id of inserted record
     }
 
-   public static ResultSet select(String table, String columns, String filter, Connection con) throws SQLException {
+    public static ResultSet select(String table, String columns, String filter, Connection con) throws SQLException {
         Statement statement = con.createStatement();
         ResultSet results = statement.executeQuery(String.format("SELECT %s " +
                 "FROM %s " +
