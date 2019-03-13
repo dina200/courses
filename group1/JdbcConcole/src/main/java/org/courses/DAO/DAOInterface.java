@@ -9,5 +9,5 @@ public interface DAOInterface {
    void Save(BaseEntity o) throws SQLException, IllegalAccessException;
    BaseEntity Read(int id) throws SQLException;
    List<BaseEntity> ReadAll() throws SQLException;
-   void Delete();
+   void Delete(int id) throws SQLException;
 }

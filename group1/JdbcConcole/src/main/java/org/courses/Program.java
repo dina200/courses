@@ -1,6 +1,7 @@
 package org.courses;
 
 import org.apache.tools.ant.types.Commandline;
+import org.courses.DAO.entities.Type;
 import org.courses.DAO.operations.TypeOperation;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
@@ -35,9 +36,9 @@ public class Program {
 //            greetUser();
 //        }
         Connection con = ConnectionManager.getConnection("test.db");
-        TypeOperation commands = new TypeOperation(con);
+        TypeOperation operation = new TypeOperation(con);
         try {
-            System.out.println(commands.ReadAll());
+            System.out.println(operation.ReadAll());
         } catch (Exception e) {
             System.out.println(e);
         }

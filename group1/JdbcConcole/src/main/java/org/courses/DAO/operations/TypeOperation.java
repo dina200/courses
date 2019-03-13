@@ -3,15 +3,17 @@ package org.courses.DAO.operations;
 import org.courses.DAO.DAOInterface;
 import org.courses.DAO.StaticDAOOperation;
 import org.courses.DAO.entities.Type;
+import org.courses.commands.CommandFormatException;
 import org.courses.domain.jdbc.BaseEntity;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TypeOperation implements DAOInterface {
+    private static final String TYPE = "Type";
+    private static final String ID = "id";
+    private static final String NAME = "name";
     private Connection connection;
 
     public TypeOperation(Connection connection) {
@@ -22,38 +24,33 @@ public class TypeOperation implements DAOInterface {
     public void Save(BaseEntity o) throws SQLException, IllegalAccessException {
         Type type = (Type) o;
         if (type.getId() == -1) {
-            StaticDAOOperation.insert(type, this.connection);
+            StaticDAOOperation.insert(TYPE, NAME, String.format("'%s'", type.getName()), connection);
         } else {
-            //some update operation
+            StaticDAOOperation.update(TYPE, String.format(NAME + " = '%s'", type.getName()), String.format(ID + " = %s", type.getId()), connection);
         }
     }
 
     @Override
     public BaseEntity Read(int id) throws SQLException {
-        String filter = String.format("id = %s", id);
-        ResultSet results = StaticDAOOperation.select("Type", "*", filter, this.connection);
-        results.next();
-        String name = results.getString("name");
-        results.close();
-        return new Type(id, name);
+        String filter = String.format(ID + " = %s", id);
+        BaseEntity entity;
+        try {
+            entity = StaticDAOOperation.select(TYPE, "*", filter, this.connection).get(0);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandFormatException("The record does't exist");
+        }
+        return entity;
     }
 
     @Override
     public List<BaseEntity> ReadAll() throws SQLException {
         String filter = "1 = 1";
-        ResultSet results = StaticDAOOperation.select("Type", "*", filter, this.connection);
-        List<BaseEntity> daoSockTypeList = new ArrayList<>();
-        while (results.next()) {
-            int id = results.getInt("id");
-            String name = results.getString("name");
-            daoSockTypeList.add(new Type(id, name));
-        }
-        results.close();
-        return daoSockTypeList;
+        return StaticDAOOperation.select(TYPE, "*", filter, this.connection);
     }
 
     @Override
-    public void Delete() {
-
+    public void Delete(int id) throws SQLException {
+        String filter = String.format(ID + " = %s", id);
+        StaticDAOOperation.delete(TYPE, filter, this.connection);
     }
 }
