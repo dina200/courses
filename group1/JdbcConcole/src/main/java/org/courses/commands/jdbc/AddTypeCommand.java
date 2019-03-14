@@ -1,24 +1,24 @@
 package org.courses.commands.jdbc;
 
+import org.courses.DAO.DAO;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
+import org.courses.domain.hbm.Type;
 
-import java.sql.SQLException;
+import java.util.Arrays;
 
-public class AddTypeCommand extends AbstractQueryCommand implements Command {
+public class AddTypeCommand implements Command {
     private String typeName;
+    private DAO<Type, Integer> dao;
+
+    public AddTypeCommand(DAO<Type, Integer> dao) {
+        this.dao = dao;
+    }
 
     @Override
     public void parse(String[] args) {
         if (args.length > 0) {
-            dbFile = args[0];
-        }
-        else {
-            throw new CommandFormatException("DB file is not specified");
-        }
-
-        if (args.length > 1) {
-            typeName = args[1];
+            typeName = args[0];
         }
         else {
             throw new CommandFormatException("Type name is not specified");
@@ -27,11 +27,8 @@ public class AddTypeCommand extends AbstractQueryCommand implements Command {
 
     @Override
     public void execute() {
-        try {
-            insert("Type", "name", String.format("'%s'", typeName));
-        }
-        catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        Type t = new Type();
+        t.setName(typeName);
+        dao.save(Arrays.asList(t));
     }
 }
