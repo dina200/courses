@@ -1,6 +1,8 @@
 package org.courses.domain.hbm;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Manufacture")
@@ -18,6 +20,12 @@ public class Socks {
 
     @ManyToOne
     private Manufacture manufacture;
+
+    @ManyToOne
+    private Type type;
+
+    @OneToMany
+    private List<Composition> composition = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -49,5 +57,21 @@ public class Socks {
 
     public void setManufacture(Manufacture manufacture) {
         this.manufacture = manufacture;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public List<Composition> getComposition() {
+        return composition;
+    }
+
+    public void setComposition(List<Composition> composition) {
+        this.composition = composition;
     }
 }
