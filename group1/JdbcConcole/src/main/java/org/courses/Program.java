@@ -1,18 +1,18 @@
 package org.courses;
 
+import org.apache.tools.ant.types.Commandline;
 import org.courses.DAO.DAO;
+import org.courses.DAO.hbm.ManufactureDao;
 import org.courses.DAO.hbm.MaterialDao;
 import org.courses.DAO.hbm.TypeDao;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
 import org.courses.commands.jdbc.*;
-import org.apache.tools.ant.types.Commandline;
 import org.courses.domain.hbm.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -43,16 +43,17 @@ public class Program {
         SessionFactory factory = getSessionFactory();
         DAO<Type, Integer> typeDao = new TypeDao(factory);
         DAO<Material, Integer> materialDao = new MaterialDao(factory);
+        DAO<Manufacture, Integer> manufactureDao = new ManufactureDao(factory);
 
         commands = new HashMap<>();
         commands.put("connect", new CreateDb());
         commands.put("table", new CreateTable());
-        commands.put("addtype", new AddTypeCommand(typeDao));
-        commands.put("addmaterial", new AddMaterialCommand(materialDao));
-        commands.put("addmanufacture", new AddManufactureCommand());
-        commands.put("listmaterial", new ListMaterialCommand());
-        commands.put("listtype", new ListTypeCommand(typeDao));
-        commands.put("listmanufacture", new ListManufactureCommand());
+        commands.put("addtype", new AddSimpleEntityCommand<>(typeDao));
+        commands.put("addmaterial", new AddSimpleEntityCommand<>(materialDao));
+        commands.put("addmanufacture", new AddSimpleEntityCommand<>(manufactureDao));
+        commands.put("listmaterial", new ListSimpleEntityCommand<>(materialDao));
+        commands.put("listtype", new ListSimpleEntityCommand<>(typeDao));
+        commands.put("listmanufacture", new ListSimpleEntityCommand<>(manufactureDao));
     }
 
     public static void main(String[] args) {
@@ -79,7 +80,7 @@ public class Program {
         catch (CommandFormatException e) {
             System.out.println(String.format("%s has some invalid arguments", commandName));
         }
-        catch (NotImplementedException e) {
+        catch (RuntimeException e) {
             System.out.println(String.format("Unknown command %s", commandName));
         }
     }
@@ -88,7 +89,7 @@ public class Program {
         Command command = commands.get(commandName);
 
         if (null == command)
-            throw new NotImplementedException();
+            throw new RuntimeException();
 
         command.parse(params);
         command.execute();

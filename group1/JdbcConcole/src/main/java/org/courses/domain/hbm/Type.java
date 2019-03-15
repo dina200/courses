@@ -4,14 +4,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Type")
-public class Type {
+public class Type implements SimpleEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    protected int id;
 
     @Column(name = "name")
-    private String name;
+    protected String name;
 
     public int getId() {
         return id;

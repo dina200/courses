@@ -2,15 +2,15 @@ package org.courses.commands.jdbc;
 
 import org.courses.DAO.DAO;
 import org.courses.commands.Command;
-import org.courses.domain.hbm.Type;
+import org.courses.domain.hbm.SimpleEntity;
 
 import java.util.Collection;
 
-public class ListTypeCommand extends AbstractQueryCommand implements Command {
+public class ListSimpleEntityCommand<S extends SimpleEntity> implements Command {
     private String filter;
-    private DAO<Type, Integer> dao;
+    private DAO<S, Integer> dao;
 
-    public ListTypeCommand(DAO<Type, Integer> dao) {
+    public ListSimpleEntityCommand(DAO<S, Integer> dao) {
         this.dao = dao;
     }
 
@@ -26,15 +26,15 @@ public class ListTypeCommand extends AbstractQueryCommand implements Command {
 
     @Override
     public void execute() {
-        Collection<Type> types = null;
+        Collection<S> entities;
         if (null == filter || "".equals(filter)) {
-            types = dao.readAll();
+            entities = dao.readAll();
         }
         else {
-            types = dao.find(filter);
+            entities = dao.find(filter);
         }
-        for (Type type : types) {
-            System.out.println(String.format("%d\t%s", type.getId(), type.getName()));
+        for (S s : entities) {
+            System.out.println(String.format("%d\t%s", s.getId(), s.getName()));
         }
     }
 }
