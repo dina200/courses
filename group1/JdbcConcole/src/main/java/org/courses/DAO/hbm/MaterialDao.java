@@ -1,7 +1,6 @@
 package org.courses.DAO.hbm;
 
 import org.courses.domain.hbm.Material;
-import org.courses.domain.hbm.SimpleEntity;
 import org.hibernate.SessionFactory;
 
 public class MaterialDao extends SimpleEntityDao<Material> {
@@ -16,7 +15,7 @@ public class MaterialDao extends SimpleEntityDao<Material> {
 
     @Override
     public String getEntityName() {
-        return "Material";
+        return Material.class.getSimpleName();
     }
 
     @Override

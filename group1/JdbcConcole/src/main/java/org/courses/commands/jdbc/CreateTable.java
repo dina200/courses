@@ -18,15 +18,13 @@ public class CreateTable implements Command {
     public void parse(String[] args) {
         if (args.length > 0) {
             dbFile = args[0];
-        }
-        else {
+        } else {
             throw new CommandFormatException("DB file is not specified");
         }
 
         if (args.length > 1) {
             tableName = args[1];
-        }
-        else {
+        } else {
             throw new CommandFormatException("Table name is not specified");
         }
     }
@@ -37,12 +35,11 @@ public class CreateTable implements Command {
             String url = connectionString();
             Connection connection = DriverManager.getConnection(url);
             Statement statement = connection.createStatement();
-            boolean result = statement.execute(
+            statement.execute(
                     String.format("CREATE TABLE IF NOT EXISTS %s (id INTEGER PRIMARY KEY AUTOINCREMENT)", tableName));
             statement.close();
             connection.close();
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 

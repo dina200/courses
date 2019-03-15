@@ -15,7 +15,7 @@ public class ManufactureDao extends SimpleEntityDao<Manufacture> {
 
     @Override
     public String getEntityName() {
-        return "Manufacture";
+        return Manufacture.class.getSimpleName();
     }
 
     @Override
