@@ -3,6 +3,7 @@ package org.courses.commands.jdbc;
 import org.courses.DAO.DAO;
 import org.courses.commands.Command;
 import org.courses.commands.CommandFormatException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
@@ -31,6 +32,7 @@ public abstract class CrudCommand<TEntity, TKey> implements Command {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void execute() {
         if ("add".equals(verb))
             add();
