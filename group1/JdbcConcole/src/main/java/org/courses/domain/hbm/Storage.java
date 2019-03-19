@@ -1,5 +1,8 @@
 package org.courses.domain.hbm;
 
+import org.courses.domain.hbm.sqliteconvertion.DateConverter;
+import org.joda.time.DateTime;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,10 +17,12 @@ public class Storage {
     private Socks socks;
 
     @Column(name = "added")
-    private String added;
+    @Convert(converter = DateConverter.class)
+    private DateTime added;
 
     @Column(name = "retired")
-    private String retired;
+    @Convert(converter = DateConverter.class)
+    private DateTime retired;
 
     @Column(name = "usage")
     private Integer usage;
@@ -38,19 +43,19 @@ public class Storage {
         this.socks = socks;
     }
 
-    public String getAdded() {
+    public DateTime getAdded() {
         return added;
     }
 
-    public void setAdded(String added) {
+    public void setAdded(DateTime added) {
         this.added = added;
     }
 
-    public String getRetired() {
+    public DateTime getRetired() {
         return retired;
     }
 
-    public void setRetired(String retired) {
+    public void setRetired(DateTime retired) {
         this.retired = retired;
     }
 

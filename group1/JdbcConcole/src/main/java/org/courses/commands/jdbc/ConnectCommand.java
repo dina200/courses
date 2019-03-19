@@ -1,33 +1,41 @@
 package org.courses.commands.jdbc;
 
 import org.courses.commands.Command;
-import org.courses.commands.CommandFormatException;
+import org.hibernate.SessionFactory;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+import javax.sql.DataSource;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class CreateTable implements Command {
-    private String dbFile;
-    private String tableName;
+public class ConnectCommand implements Command {
+    private String dbName;
+    private String dbPath;
+    private SessionFactory sessionFactory;
+    private DriverManagerDataSource dataSource;
+
+    public ConnectCommand(SessionFactory sessionFactory, DriverManagerDataSource dataSource) {
+        this.dataSource = dataSource;
+        this.sessionFactory = sessionFactory;
+    }
 
     @Override
     public void parse(String[] args) {
         if (args.length > 0) {
-            dbFile = args[0];
+            dbName = args[0];
         }
         else {
-            throw new CommandFormatException("DB file is not specified");
+            dbName = "test.db";
         }
 
         if (args.length > 1) {
-            tableName = args[1];
+            dbPath = args[1];
         }
         else {
-            throw new CommandFormatException("Table name is not specified");
+            dbPath = ".";
         }
     }
 
@@ -36,20 +44,17 @@ public class CreateTable implements Command {
         try {
             String url = connectionString();
             Connection connection = DriverManager.getConnection(url);
-            Statement statement = connection.createStatement();
-            boolean result = statement.execute(
-                    String.format("CREATE TABLE IF NOT EXISTS %s (id INTEGER PRIMARY KEY AUTOINCREMENT)", tableName));
-            statement.close();
             connection.close();
+
+            dataSource.setUrl(url);
         }
         catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     private String connectionString() {
-        Path path = Paths.get(dbFile);
+        Path path = Paths.get(dbPath, dbName);
         return String.format("jdbc:sqlite:%s", path.toAbsolutePath());
     }
 }

@@ -1,17 +1,15 @@
 package org.courses.DAO;
 
-import java.sql.SQLException;
 import java.util.Collection;
-import java.util.List;
 
-public interface DAO<Tentity, Tkey> {
-   void save(Collection<Tentity> entity);
+public interface DAO<TEntity, TKey> {
+   void save(Collection<TEntity> entity);
 
-   Tentity read(Tkey id);
+   TEntity read(TKey id);
 
-   Collection<Tentity> readAll();
+   Collection<TEntity> readAll();
 
-   Collection<Tentity> find(String filter);
+   Collection<TEntity> find(String filter);
 
-   void delete(Tentity entity);
+   void delete(TKey id);
 }
