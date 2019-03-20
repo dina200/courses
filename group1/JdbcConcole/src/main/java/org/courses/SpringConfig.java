@@ -1,12 +1,9 @@
 package org.courses;
 
 import org.courses.DAO.DAO;
-import org.courses.DAO.hbm.ManufactureDao;
-import org.courses.DAO.hbm.MaterialDao;
-import org.courses.DAO.hbm.TypeDao;
+import org.courses.DAO.hbm.*;
 import org.courses.commands.Command;
-import org.courses.commands.jdbc.CrudCommand;
-import org.courses.commands.jdbc.MaterialCommand;
+import org.courses.commands.jdbc.*;
 import org.courses.domain.hbm.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +91,15 @@ public class SpringConfig {
     }
 
     @Bean
+    public DAO<Storage, Integer> storageDao() {
+        return new StorageDao(sessionFactory);
+    }
+    @Bean
+    public DAO<Socks, Integer> socksDao() {
+        return new SocksDao(sessionFactory);
+    }
+
+    @Bean
     public Scanner scanner() {
         return new Scanner(System.in);
     }
@@ -104,10 +110,34 @@ public class SpringConfig {
     }
 
     @Bean
+    public CrudCommand<Type, Integer> typeCommand() {
+        return new TypeCommand(typeDao(), scanner());
+    }
+
+    @Bean
+    public CrudCommand<Manufacture, Integer> manufactureCommand() {
+        return new ManufactureCommand(manufactureDao(), scanner());
+    }
+
+    @Bean
+    public CrudCommand<Storage, Integer> storageCommand() {
+        return new StorageCommand(storageDao(), scanner());
+    }
+
+    @Bean
+    public CrudCommand<Socks, Integer> socksCommand() {
+        return new SocksCommand(socksDao(), scanner());
+    }
+
+    @Bean
     public Map<String, Command> commands() {
         Map<String, Command> commands = new HashMap<>();
 
         commands.put("material", materialCommand());
+        commands.put("type", typeCommand());
+        commands.put("manufacture", manufactureCommand());
+        commands.put("storage", storageCommand());
+        commands.put("socks", socksCommand());
 
         return commands;
     }

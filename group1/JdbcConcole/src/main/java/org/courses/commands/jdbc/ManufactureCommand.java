@@ -1,20 +1,20 @@
 package org.courses.commands.jdbc;
 
 import org.courses.DAO.DAO;
-import org.courses.domain.hbm.Material;
+import org.courses.domain.hbm.Manufacture;
 
 import java.util.Scanner;
 
-public class MaterialCommand extends CrudCommand<Material, Integer> {
+public class ManufactureCommand extends CrudCommand<Manufacture, Integer> {
     private Scanner scanner;
 
-    public MaterialCommand(DAO<Material, Integer> dao, Scanner scanner) {
-        super(dao, Material.class);
+    public ManufactureCommand(DAO<Manufacture, Integer> dao, Scanner scanner) {
+        super(dao, Manufacture.class);
         this.scanner = scanner;
     }
 
     @Override
-    protected void readEntity(Material material) {
+    protected void readEntity(Manufacture material) {
         System.out.print("name: ");
         if (scanner.hasNext()) {
             String name = scanner.nextLine();
@@ -28,7 +28,7 @@ public class MaterialCommand extends CrudCommand<Material, Integer> {
     }
 
     @Override
-    protected void print(Material entity) {
-        System.out.println(String.format("Material { id: %d, name: %s }", entity.getId(), entity.getName()));
+    protected void print(Manufacture entity) {
+        System.out.println(String.format("Manufacture { id: %d, name: %s }", entity.getId(), entity.getName()));
     }
 }
