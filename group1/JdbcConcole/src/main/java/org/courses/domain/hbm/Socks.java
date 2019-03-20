@@ -1,6 +1,9 @@
 package org.courses.domain.hbm;
 
+import org.courses.domain.hbm.sqliteconvertion.ColorConverter;
+
 import javax.persistence.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +19,8 @@ public class Socks {
     private double size;
 
     @Column(name = "colour")
-    private int colour;
+    @Convert(converter = ColorConverter.class)
+    private Color colour;
 
     @ManyToOne
     private Manufacture manufacture;
@@ -43,11 +47,11 @@ public class Socks {
         this.size = size;
     }
 
-    public int getColour() {
+    public Color getColour() {
         return colour;
     }
 
-    public void setColour(int colour) {
+    public void setColour(Color colour) {
         this.colour = colour;
     }
 
