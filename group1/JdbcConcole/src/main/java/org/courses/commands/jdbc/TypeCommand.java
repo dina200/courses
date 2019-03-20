@@ -14,11 +14,11 @@ public class TypeCommand extends CrudCommand<Type, Integer> {
     }
 
     @Override
-    protected void readEntity(Type material) {
+    protected void readEntity(Type entity) {
         System.out.print("name: ");
         if (scanner.hasNext()) {
             String name = scanner.nextLine();
-            material.setName(name);
+            entity.setName(name);
         }
     }
 

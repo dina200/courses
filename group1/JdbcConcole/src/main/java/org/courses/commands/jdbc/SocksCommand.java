@@ -14,11 +14,11 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
     }
 
     @Override
-    protected void readEntity(Socks material) {
+    protected void readEntity(Socks entity) {
 //        System.out.print("name: ");
 //        if (scanner.hasNext()) {
 //            String name = scanner.nextLine();
-//            material.setName(name);
+//            entity.setName(name);
 //        }
     }
 

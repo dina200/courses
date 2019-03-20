@@ -14,11 +14,11 @@ public class StorageCommand extends CrudCommand<Storage, Integer> {
     }
 
     @Override
-    protected void readEntity(Storage material) {
+    protected void readEntity(Storage  entity) {
 //        System.out.print("name: ");
 //        if (scanner.hasNext()) {
 //            String name = scanner.nextLine();
-//            material.setName(name);
+//            entity.setName(name);
 //        }
     }
 
@@ -29,6 +29,12 @@ public class StorageCommand extends CrudCommand<Storage, Integer> {
 
     @Override
     protected void print(Storage entity) {
-//        System.out.println(String.format("Storage { id: %d, name: %s }", entity.getId(), entity.getName()));
+        System.out.println(String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s, usage: %s }",
+                entity.getId(),
+                entity.getSocks().getId(),
+                entity.getAdded().toString("yyyy-MM-dd"),
+                entity.getRetired().toString("yyyy-MM-dd"),
+                entity.getUsage().toString())
+        );
     }
 }

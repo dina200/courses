@@ -14,6 +14,7 @@ public class Storage {
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "socks")
     private Socks socks;
 
     @Column(name = "added")

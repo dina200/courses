@@ -14,11 +14,11 @@ public class ManufactureCommand extends CrudCommand<Manufacture, Integer> {
     }
 
     @Override
-    protected void readEntity(Manufacture material) {
+    protected void readEntity(Manufacture entity) {
         System.out.print("name: ");
         if (scanner.hasNext()) {
             String name = scanner.nextLine();
-            material.setName(name);
+            entity.setName(name);
         }
     }
 
