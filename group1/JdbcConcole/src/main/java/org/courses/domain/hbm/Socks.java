@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Manufacture")
+@Table(name = "Socks")
 public class Socks {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -23,9 +23,11 @@ public class Socks {
     private Color colour;
 
     @ManyToOne
+    @JoinColumn(name = "manufacture")
     private Manufacture manufacture;
 
     @ManyToOne
+    @JoinColumn(name = "type")
     private Type type;
 
     @OneToMany
@@ -49,6 +51,16 @@ public class Socks {
 
     public Color getColour() {
         return colour;
+    }
+
+    public String getStrColour() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[ ");
+        builder.append("r=").append(colour.getRed()).append(", ");
+        builder.append("g=").append(colour.getGreen()).append(", ");
+        builder.append("b=").append(colour.getBlue());
+        builder.append(" ]");
+        return builder.toString();
     }
 
     public void setColour(Color colour) {
@@ -75,7 +87,30 @@ public class Socks {
         return composition;
     }
 
+    public String getStrComposition() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{ ");
+        for (Composition c : composition) {
+            builder.append(c.getPercentage()).append(" ").append(c.getMaterial());
+            if(composition.iterator().hasNext()){
+                builder.append(", ");
+            }
+        }
+        builder.append(" }");
+        return builder.toString();
+    }
+
     public void setComposition(List<Composition> composition) {
         this.composition = composition;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s }",
+                this.getId(),
+                this.getStrColour(),
+                this.getSize(),
+                this.getType().getName(),
+                this.getManufacture().getName());
     }
 }

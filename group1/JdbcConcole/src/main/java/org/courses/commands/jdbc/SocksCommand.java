@@ -29,6 +29,6 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
 
     @Override
     protected void print(Socks entity) {
-//        System.out.println(String.format("Socks { id: %d, name: %s }", entity.getId(), entity.getName()));
+        System.out.println(entity.toString());
     }
 }
