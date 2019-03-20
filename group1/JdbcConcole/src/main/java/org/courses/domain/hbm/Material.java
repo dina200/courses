@@ -42,4 +42,8 @@ public class Material {
         this.composition = composition;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Material { id: %d, name: %s }", id, name);
+    }
 }

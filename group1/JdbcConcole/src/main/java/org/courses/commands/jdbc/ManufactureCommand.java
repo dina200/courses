@@ -29,6 +29,6 @@ public class ManufactureCommand extends CrudCommand<Manufacture, Integer> {
 
     @Override
     protected void print(Manufacture entity) {
-        System.out.println(String.format("Manufacture { id: %d, name: %s }", entity.getId(), entity.getName()));
+        System.out.println(entity);
     }
 }

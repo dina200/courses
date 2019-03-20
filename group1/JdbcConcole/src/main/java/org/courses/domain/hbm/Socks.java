@@ -92,9 +92,7 @@ public class Socks {
         builder.append("{ ");
         for (Composition c : composition) {
             builder
-                    .append(c.getPercentage())
-                    .append("%_")
-                    .append(c.getMaterial().getName())
+                    .append(c)
                     .append(" ");
         }
         builder.append("}");
@@ -103,6 +101,13 @@ public class Socks {
 
     public void setComposition(List<Composition> composition) {
         this.composition = composition;
+    }
+
+    public void setComposition(Composition c) {
+        if(composition == null){
+            composition = new ArrayList<Composition>();
+        }
+        composition.add(c);
     }
 
     @Override

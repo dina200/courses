@@ -126,7 +126,7 @@ public class SpringConfig {
 
     @Bean
     public CrudCommand<Socks, Integer> socksCommand() {
-        return new SocksCommand(socksDao(), scanner());
+        return new SocksCommand(socksDao(), scanner(), typeDao(), manufactureDao(), materialDao());
     }
 
     @Bean

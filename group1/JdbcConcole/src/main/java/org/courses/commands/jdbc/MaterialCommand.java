@@ -29,6 +29,6 @@ public class MaterialCommand extends CrudCommand<Material, Integer> {
 
     @Override
     protected void print(Material entity) {
-        System.out.println(String.format("Material { id: %d, name: %s }", entity.getId(), entity.getName()));
+        System.out.println(entity);
     }
 }

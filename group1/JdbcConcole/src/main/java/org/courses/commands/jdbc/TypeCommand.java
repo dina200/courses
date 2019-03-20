@@ -29,6 +29,6 @@ public class TypeCommand extends CrudCommand<Type, Integer> {
 
     @Override
     protected void print(Type entity) {
-        System.out.println(String.format("Type { id: %d, name: %s }", entity.getId(), entity.getName()));
+        System.out.println(entity);
     }
 }

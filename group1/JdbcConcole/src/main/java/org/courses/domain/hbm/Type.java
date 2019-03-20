@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "Type")
 public class Type {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -27,5 +27,10 @@ public class Type {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Type { id: %d, name: %s }", id, name);
     }
 }

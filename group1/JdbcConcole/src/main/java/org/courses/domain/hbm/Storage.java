@@ -67,4 +67,14 @@ public class Storage {
     public void setUsage(Integer usage) {
         this.usage = usage;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s, usage: %s }",
+                id,
+                socks.getId(),
+                added.toString("yyyy-MM-dd"),
+                retired.toString("yyyy-MM-dd"),
+                usage);
+    }
 }

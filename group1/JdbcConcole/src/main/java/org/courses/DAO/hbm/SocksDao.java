@@ -2,6 +2,7 @@ package org.courses.DAO.hbm;
 
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.courses.domain.hbm.Socks;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.Collection;
@@ -15,6 +16,13 @@ public class SocksDao extends BaseDao<Socks, Integer> {
 
     @Override
     public Collection<Socks> find(String filter) {
-        return null;
+        Session session = factory.getCurrentSession();
+        return session
+                .createQuery("from Socks " +
+                        "where id = :id " +
+                        "or name like :filter")
+                .setParameter("id", Int32.validate(filter))
+                .setParameter("filter", String.format("%%%s%%", filter))
+                .list();
     }
 }
