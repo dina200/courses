@@ -30,7 +30,7 @@ public class Socks {
     @JoinColumn(name = "type")
     private Type type;
 
-    @OneToMany
+    @OneToMany(mappedBy = "socks")
     private List<Composition> composition = new ArrayList<>();
 
     public int getId() {
@@ -56,8 +56,8 @@ public class Socks {
     public String getStrColour() {
         StringBuilder builder = new StringBuilder();
         builder.append("[ ");
-        builder.append("r=").append(colour.getRed()).append(", ");
-        builder.append("g=").append(colour.getGreen()).append(", ");
+        builder.append("r=").append(colour.getRed()).append(" ");
+        builder.append("g=").append(colour.getGreen()).append(" ");
         builder.append("b=").append(colour.getBlue());
         builder.append(" ]");
         return builder.toString();
@@ -91,12 +91,13 @@ public class Socks {
         StringBuilder builder = new StringBuilder();
         builder.append("{ ");
         for (Composition c : composition) {
-            builder.append(c.getPercentage()).append(" ").append(c.getMaterial());
-            if(composition.iterator().hasNext()){
-                builder.append(", ");
-            }
+            builder
+                    .append(c.getPercentage())
+                    .append("%_")
+                    .append(c.getMaterial().getName())
+                    .append(" ");
         }
-        builder.append(" }");
+        builder.append("}");
         return builder.toString();
     }
 
@@ -106,11 +107,12 @@ public class Socks {
 
     @Override
     public String toString() {
-        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s }",
+        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s, composition: %s }",
                 this.getId(),
                 this.getStrColour(),
                 this.getSize(),
                 this.getType().getName(),
-                this.getManufacture().getName());
+                this.getManufacture().getName(),
+                this.getStrComposition());
     }
 }

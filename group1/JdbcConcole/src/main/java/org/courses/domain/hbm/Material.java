@@ -1,6 +1,8 @@
 package org.courses.domain.hbm;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Material")
@@ -12,6 +14,9 @@ public class Material {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "material")
+    private List<Composition> composition = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -28,4 +33,13 @@ public class Material {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Composition> getComposition() {
+        return composition;
+    }
+
+    public void setComposition(List<Composition> composition) {
+        this.composition = composition;
+    }
+
 }
