@@ -7,7 +7,6 @@ import org.courses.commands.jdbc.*;
 import org.courses.domain.hbm.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -16,10 +15,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Scanner;
+import java.util.*;
 
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
@@ -94,9 +90,20 @@ public class SpringConfig {
     public DAO<Storage, Integer> storageDao() {
         return new StorageDao(sessionFactory);
     }
+
     @Bean
     public DAO<Socks, Integer> socksDao() {
         return new SocksDao(sessionFactory);
+    }
+
+    @Bean
+    public DAO<Composition, Integer> compositionDao() {
+        return new BaseDao<Composition, Integer>(sessionFactory, Composition.class) {
+            @Override
+            public Collection<Composition> find(String filter) {
+                return null;
+            }
+        };
     }
 
     @Bean
@@ -125,8 +132,30 @@ public class SpringConfig {
     }
 
     @Bean
+    public CrudCommand<Composition, Integer> compositionCommand() {
+        return new CrudCommand<Composition, Integer>(compositionDao(), Composition.class) {
+            @Override
+            protected void readEntity(Composition composition) {}
+
+            @Override
+            protected Integer convertId(String id) {
+                return null;
+            }
+
+            @Override
+            protected void print(Composition composition) {}
+        };
+    }
+
+    @Bean
     public CrudCommand<Socks, Integer> socksCommand() {
-        return new SocksCommand(socksDao(), scanner(), typeDao(), manufactureDao(), materialDao());
+        return new SocksCommand(
+                socksDao(),
+                scanner(),
+                typeDao(),
+                manufactureDao(),
+                materialDao(),
+                compositionDao());
     }
 
     @Bean

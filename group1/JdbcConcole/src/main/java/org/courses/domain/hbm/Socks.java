@@ -54,13 +54,12 @@ public class Socks {
     }
 
     public String getStrColour() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("[ ");
-        builder.append("r=").append(colour.getRed()).append(" ");
-        builder.append("g=").append(colour.getGreen()).append(" ");
-        builder.append("b=").append(colour.getBlue());
-        builder.append(" ]");
-        return builder.toString();
+        String builder = "[ " +
+                "r=" + colour.getRed() + " " +
+                "g=" + colour.getGreen() + " " +
+                "b=" + colour.getBlue() +
+                " ]";
+        return builder;
     }
 
     public void setColour(Color colour) {
@@ -83,11 +82,11 @@ public class Socks {
         this.type = type;
     }
 
-    public List<Composition> getComposition() {
+    public List<Composition> getCompositions() {
         return composition;
     }
 
-    public String getStrComposition() {
+    public String getStrCompositions() {
         StringBuilder builder = new StringBuilder();
         builder.append("{ ");
         for (Composition c : composition) {
@@ -99,13 +98,13 @@ public class Socks {
         return builder.toString();
     }
 
-    public void setComposition(List<Composition> composition) {
+    public void setCompositions(List<Composition> composition) {
         this.composition = composition;
     }
 
     public void setComposition(Composition c) {
         if(composition == null){
-            composition = new ArrayList<Composition>();
+            composition = new ArrayList<>();
         }
         composition.add(c);
     }
@@ -118,6 +117,6 @@ public class Socks {
                 this.getSize(),
                 this.getType().getName(),
                 this.getManufacture().getName(),
-                this.getStrComposition());
+                this.getStrCompositions());
     }
 }
