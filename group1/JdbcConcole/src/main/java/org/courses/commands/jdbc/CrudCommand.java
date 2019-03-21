@@ -32,7 +32,7 @@ public abstract class CrudCommand<TEntity, TKey> implements Command {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)// transaction works in one session
     public void execute() {
         if ("add".equals(verb))
             add();

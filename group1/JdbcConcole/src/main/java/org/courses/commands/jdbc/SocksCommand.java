@@ -2,8 +2,8 @@ package org.courses.commands.jdbc;
 
 import org.courses.DAO.DAO;
 import org.courses.domain.hbm.*;
-import org.courses.domain.hbm.sqliteconvertion.ColorConverter;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -41,23 +41,23 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
     private void addSize(Socks entity) {
         System.out.print("size: ");
         if (scanner.hasNext()) {
-            double size = Double.parseDouble(scanner.nextLine());
+            double size = scanner.nextDouble();
             entity.setSize(size);
         }
     }
 
     private void addColor(Socks entity) {
-        System.out.print("color (int): ");
+        System.out.print("colour (int): ");
         if (scanner.hasNext()) {
-            int color = Integer.parseInt(scanner.nextLine());
-            entity.setColour(new ColorConverter().convertToEntityAttribute(color));
+            int color = scanner.nextInt();
+            entity.setColour(new Color(color));
         }
     }
 
     private void addType(Socks entity) {
         System.out.print("type_id: ");
         if (scanner.hasNext()) {
-            int type_id = Integer.parseInt(scanner.nextLine());
+            int type_id = scanner.nextInt();
             Type type = daoType.read(type_id);
             entity.setType(type);
         }
@@ -66,7 +66,7 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
     private void addManufacture(Socks entity) {
         System.out.print("manufacture_id: ");
         if (scanner.hasNext()) {
-            int manufacture_id = Integer.parseInt(scanner.nextLine());
+            int manufacture_id = scanner.nextInt();
             Manufacture manufacture = daoManufacture.read(manufacture_id);
             entity.setManufacture(manufacture);
         }
@@ -80,7 +80,7 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
         while (generalPercentage < 100) {
             System.out.print("material's percentage: ");
             if (scanner.hasNext()) {
-                percentage = Integer.parseInt(scanner.nextLine());
+                percentage = scanner.nextInt();
                 if (percentage >= 100) {
                     percentage = 100 - generalPercentage;
                 }
@@ -90,7 +90,7 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
             }
             System.out.print("material_id: ");
             if (scanner.hasNext()) {
-                int material_id = Integer.parseInt(scanner.nextLine());
+                int material_id = scanner.nextInt();
                 material = daoMaterial.read(material_id);
             } else {
                 continue;

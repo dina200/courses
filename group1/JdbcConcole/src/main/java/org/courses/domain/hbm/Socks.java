@@ -7,6 +7,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//log4J or slf4j use 'info'
+
 @Entity
 @Table(name = "Socks")
 public class Socks {
