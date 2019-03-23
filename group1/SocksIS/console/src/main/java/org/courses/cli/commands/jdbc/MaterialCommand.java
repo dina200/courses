@@ -15,7 +15,7 @@ public class MaterialCommand extends CrudCommand<Material, Integer> {
 
     @Override
     protected void readEntity(Material material) {
-        System.out.print("\tname: ");
+        System.out.print("name: ");
         if (scanner.hasNext()) {
             String name = scanner.nextLine();
             material.setName(name);
@@ -28,7 +28,7 @@ public class MaterialCommand extends CrudCommand<Material, Integer> {
     }
 
     @Override
-    protected void print(Material m) {
-        System.out.println(String.format("\tMaterial { id: %d, name: %s }", m.getId(), m.getName()));
+    protected void print(Material entity) {
+        System.out.println(entity);
     }
 }

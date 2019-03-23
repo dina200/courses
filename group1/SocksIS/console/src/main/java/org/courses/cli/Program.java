@@ -5,7 +5,7 @@ import org.courses.cli.commands.CommandFormatException;
 import org.apache.tools.ant.types.Commandline;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+//import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -40,7 +40,7 @@ public class Program {
         catch (CommandFormatException e) {
             System.out.println(String.format("%s has some invalid arguments", commandName));
         }
-        catch (NotImplementedException e) {
+        catch (RuntimeException e) {
             System.out.println(String.format("Unknown command %s", commandName));
         }
     }
@@ -49,7 +49,7 @@ public class Program {
         Command command = commands.get(commandName);
 
         if (null == command)
-            throw new NotImplementedException();
+            throw new RuntimeException();
 
         command.parse(params);
         command.execute();

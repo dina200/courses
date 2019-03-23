@@ -7,11 +7,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//log4J or slf4j use 'info'
+
 @Entity
 @Table(name = "Socks")
 public class Socks {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -54,6 +56,15 @@ public class Socks {
         return colour;
     }
 
+    public String getStrColour() {
+        String builder = "[ " +
+                "r=" + colour.getRed() + " " +
+                "g=" + colour.getGreen() + " " +
+                "b=" + colour.getBlue() +
+                " ]";
+        return builder;
+    }
+
     public void setColour(Color colour) {
         this.colour = colour;
     }
@@ -74,16 +85,42 @@ public class Socks {
         this.type = type;
     }
 
-    public List<Composition> getComposition() {
+    public List<Composition> getCompositions() {
         return composition;
     }
 
-    public void setComposition(List<Composition> composition) {
+    public String getStrCompositions() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("{ ");
+        for (Composition c : composition) {
+            builder
+                    .append(c)
+                    .append(" ");
+        }
+        builder.append("}");
+        return builder.toString();
+    }
+
+    public void setCompositions(List<Composition> composition) {
         this.composition = composition;
     }
 
     public void add(Composition c) {
+        if(composition == null){
+            composition = new ArrayList<>();
+        }
         composition.add(c);
         c.setSocks(this);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s, composition: %s }",
+                this.getId(),
+                this.getStrColour(),
+                this.getSize(),
+                this.getType().getName(),
+                this.getManufacture().getName(),
+                this.getStrCompositions());
     }
 }

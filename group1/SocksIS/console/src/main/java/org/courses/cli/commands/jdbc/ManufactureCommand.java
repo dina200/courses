@@ -14,11 +14,11 @@ public class ManufactureCommand extends CrudCommand<Manufacture, Integer> {
     }
 
     @Override
-    protected void readEntity(Manufacture manufacture) {
-        System.out.print("\tname: ");
+    protected void readEntity(Manufacture entity) {
+        System.out.print("name: ");
         if (scanner.hasNext()) {
             String name = scanner.nextLine();
-            manufacture.setName(name);
+            entity.setName(name);
         }
     }
 
@@ -28,8 +28,8 @@ public class ManufactureCommand extends CrudCommand<Manufacture, Integer> {
     }
 
     @Override
-    protected void print(Manufacture manufacture) {
-        System.out.println(String.format("\tManufacture { id: %d, name: %s }",
-                manufacture.getId(), manufacture.getName()));
+    protected void print(Manufacture entity) {
+        System.out.println(entity);
     }
 }
+

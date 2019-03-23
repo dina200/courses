@@ -2,6 +2,7 @@ package org.courses.data.DAO.hbm;
 
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.courses.domain.hbm.Socks;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import java.util.Collection;

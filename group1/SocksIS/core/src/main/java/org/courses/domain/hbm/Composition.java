@@ -52,4 +52,9 @@ public class Composition {
     public void setSocks(Socks socks) {
         this.socks = socks;
     }
+
+    @Override
+    public String toString() {
+        return percentage + "%_" + material.getName();
+    }
 }
