@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/dbtest")
 public class TestService {
 
-    @GetMapping(value = "/{connectionstring}")
-    public ResponseEntity greeting(@PathVariable("connectionstring") String connectionString) {
+    @GetMapping(value = "/greeting")
+    public ResponseEntity greeting(@RequestParam(value = "connectionstring") String connectionString) {
         HttpStatus status = null == connectionString ?
-                HttpStatus.OK : HttpStatus.BAD_REQUEST;
+                HttpStatus.BAD_REQUEST : HttpStatus.OK;
         return new ResponseEntity(status);
     }
 }
