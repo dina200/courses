@@ -6,7 +6,12 @@
 
     <groupId>org.courses</groupId>
     <artifactId>core</artifactId>
-    <version>1.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.courses</groupId>
+        <artifactId>socks-system</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
     <packaging>jar</packaging>
 
