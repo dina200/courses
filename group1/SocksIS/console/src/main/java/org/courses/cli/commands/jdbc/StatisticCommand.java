@@ -1,5 +1,6 @@
 package org.courses.cli.commands.jdbc;
 
+import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Statistic;
 import org.courses.domain.hbm.Storage;
@@ -21,22 +22,23 @@ public class StatisticCommand extends CrudCommand<Statistic, Integer> {
 
     @Override
     protected void readEntity(Statistic statistic) {
+        if (statistic.getStartUsing() == null)
+            statistic.setStartUsing(new DateTime());
+
         System.out.print("\tstorage: ");
         if (scanner.hasNext()) {
             int storage = scanner.nextInt();
             statistic.setStorage(storageDao.read(storage));
         }
-        if (statistic.getStartUsing() == null)
-            statistic.setStartUsing(new DateTime());
-        System.out.print("\tset time stop_using? (y/n) ");
+
+        System.out.print("\tset time stop_using? (y/n)");
         if (scanner.hasNext()) {
-            String answer = scanner.nextLine();
+            String answer = scanner.next();
             if (answer.equals("y")) {
                 statistic.setStopUsing(new DateTime());
-            } else {
-                throw new RuntimeException("stop_using time is not added");
             }
         }
+        statistic.setUsageHrs();
     }
 
     @Override

@@ -32,6 +32,9 @@ public class SpringConfig {
     @Autowired
     DAO<Statistic, Integer> statisticDao;
 
+    @Autowired
+    DAO<Composition, Integer> compositionDao;
+
     @Bean
     public Scanner scanner() {
         return new Scanner(System.in);
@@ -49,7 +52,7 @@ public class SpringConfig {
 
     @Bean
     public CrudCommand<Socks, Integer> socksCommand() {
-        return new SocksCommand(socksDao, typeDao, materialDao, manufactureDao, scanner());
+        return new SocksCommand(socksDao, typeDao, materialDao, manufactureDao, compositionDao, scanner());
     }
 
     @Bean
@@ -59,12 +62,30 @@ public class SpringConfig {
 
     @Bean
     public CrudCommand<Storage, Integer> storageCommand() {
-        return new StorageCommand(storageDao, socksDao,statisticDao, scanner());
+        return new StorageCommand(storageDao, socksDao, statisticDao, scanner());
     }
 
     @Bean
     public CrudCommand<Statistic, Integer> statisticCommand() {
         return new StatisticCommand(statisticDao, storageDao, scanner());
+    }
+
+    @Bean
+    public CrudCommand<Composition, Integer> compositionCommand() {
+        return new CrudCommand<Composition, Integer>(compositionDao, Composition.class) {
+            @Override
+            protected void readEntity(Composition composition) {
+            }
+
+            @Override
+            protected Integer convertId(String id) {
+                return null;
+            }
+
+            @Override
+            protected void print(Composition composition) {
+            }
+        };
     }
 
     @Bean(name = "commands")

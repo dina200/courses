@@ -1,5 +1,6 @@
 package org.courses.cli.commands.jdbc;
 
+import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Socks;
 import org.courses.domain.hbm.Statistic;
@@ -31,7 +32,6 @@ public class StorageCommand extends CrudCommand<Storage, Integer> {
         if (entity.getAdded() == null)
             setTimeAdding(entity);
         setTimeRetired(entity);
-        setUsage(entity);
     }
 
 
@@ -53,14 +53,8 @@ public class StorageCommand extends CrudCommand<Storage, Integer> {
             String answer = scanner.nextLine();
             if (answer.equals("y")) {
                 entity.setAdded(new DateTime());
-            } else {
-                throw new RuntimeException("retired time is not added");
             }
         }
-    }
-
-    private void setUsage(Storage entity) {
-
     }
 
     @Override

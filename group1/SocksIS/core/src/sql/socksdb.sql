@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `Storage` (
 	`socks`	INTEGER NOT NULL,
 	`added`	TEXT NOT NULL,
 	`retired`	TEXT,
-	`usage`	INTEGER,
+	`usageHrs`	INTEGER,
 	FOREIGN KEY(`socks`) REFERENCES `Socks`(`id`)
 );
 CREATE TABLE IF NOT EXISTS `SocksMaterial` (

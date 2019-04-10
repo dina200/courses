@@ -25,9 +25,6 @@ public class Storage {
     @Convert(converter = DateConverter.class)
     private DateTime retired;
 
-    @Column(name = "usage")
-    private Integer usage;
-
     public int getId() {
         return id;
     }
@@ -60,21 +57,12 @@ public class Storage {
         this.retired = retired;
     }
 
-    public Integer getUsage() {
-        return usage;
-    }
-
-    public void setUsage(Integer usage) {
-        this.usage = usage;
-    }
-
     @Override
     public String toString() {
-        return String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s, usage: %d }",
+        return String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s }",
                 id,
                 socks.getId(),
-                added.toString(),
-                retired != null ? retired.toString() : null,
-                usage);
+                added.toString("dd.MM.yyyy hh:mm"),
+                retired != null ? retired.toString("dd.MM.yyyy hh:mm") : null);
     }
 }

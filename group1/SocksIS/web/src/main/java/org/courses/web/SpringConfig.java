@@ -3,7 +3,7 @@ package org.courses.web;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.courses.data.DAO.DAO;
-import org.courses.domain.hbm.Material;
+import org.courses.domain.hbm.*;
 import org.courses.web.soap.DbTestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
@@ -15,7 +15,25 @@ import javax.xml.ws.Endpoint;
 @ImportResource("classpath:META-INF/cxf/cxf.xml")
 public class SpringConfig {
     @Autowired
+    DAO<Type, Integer> typeDao;
+
+    @Autowired
+    DAO<Socks, Integer> socksDao;
+
+    @Autowired
     DAO<Material, Integer> materialDao;
+
+    @Autowired
+    DAO<Manufacture, Integer> manufactureDao;
+
+    @Autowired
+    DAO<Storage, Integer> storageDao;
+
+    @Autowired
+    DAO<Statistic, Integer> statisticDao;
+
+    @Autowired
+    DAO<Composition, Integer> compositionDao;
 
     @Bean
     public SpringBus cxf() {
@@ -23,8 +41,8 @@ public class SpringConfig {
     }
 
     @Bean
-    public org.courses.web.soap.TestService soapTestService() {
-        return new DbTestService(materialDao);
+    public org.courses.web.soap.TestService<Material, Integer> soapTestService() {
+        return new DbTestService<>(materialDao);
     }
 
     @Bean

@@ -6,25 +6,25 @@ import org.courses.domain.hbm.*;
 import java.awt.*;
 import java.util.Scanner;
 
-/**
- * Created by dleb on 03/21/2019.
- */
 public class SocksCommand extends CrudCommand<Socks, Integer> {
     private Scanner scanner;
     DAO<Type, Integer> typeDao;
     DAO<Material, Integer> materialDao;
     DAO<Manufacture, Integer> manufactureDao;
+    DAO<Composition, Integer> compositionDao;
 
     public SocksCommand(DAO<Socks, Integer> dao,
                         DAO<Type, Integer> typeDao,
                         DAO<Material, Integer> materialDao,
                         DAO<Manufacture, Integer> manufactureDao,
+                        DAO<Composition, Integer> compositionDao,
                         Scanner scanner) {
         super(dao, Socks.class);
         this.scanner = scanner;
         this.typeDao = typeDao;
         this.materialDao = materialDao;
         this.manufactureDao = manufactureDao;
+        this.compositionDao = compositionDao;
     }
 
     @Override
@@ -73,6 +73,7 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
         int generalPercentage = 0;
         int percentage;
         Material material;
+        deleteAllCompositions(socks);
         while (generalPercentage < 100) {
 
             System.out.print("\tmaterial: ");
@@ -97,6 +98,12 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
         }
     }
 
+    private void deleteAllCompositions(Socks entity) {
+        for (Composition c : entity.getCompositions()) {
+            compositionDao.delete(c.getId());
+        }
+    }
+
     private Composition compositionInstance(int percentage, Material material) {
         Composition composition = new Composition();
         composition.setPercentage(percentage);
@@ -114,17 +121,4 @@ public class SocksCommand extends CrudCommand<Socks, Integer> {
         System.out.println(socks);
     }
 
-//    @Override
-//    protected void print(Socks socks) {
-//        System.out.println(String.format(
-//                "\tSocks { id: %d, composition: [ ", socks.getId()
-//        ));
-//        for (Composition c : socks.getCompositions()) {
-//            System.out.println(String.format(
-//                    "\t\tComposition { id: %d, percentage: %d, material: %d },",
-//                    c.getId(), c.getPercentage(), c.getMaterial().getId()
-//            ));
-//        }
-//        System.out.println("\t]}");
-//    }
 }
