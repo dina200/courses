@@ -20,7 +20,7 @@ public class SocksDao extends BaseDao<Socks, Integer> {
         return session
                 .createQuery("from Socks " +
                         "where id = :id " +
-                        "or name like :filter")
+                        "or type like :filter")
                 .setParameter("id", Int32.validate(filter))
                 .setParameter("filter", String.format("%%%s%%", filter))
                 .list();

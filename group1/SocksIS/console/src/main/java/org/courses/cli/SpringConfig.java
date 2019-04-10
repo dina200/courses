@@ -26,6 +26,12 @@ public class SpringConfig {
     @Autowired
     DAO<Manufacture, Integer> manufactureDao;
 
+    @Autowired
+    DAO<Storage, Integer> storageDao;
+
+    @Autowired
+    DAO<Statistic, Integer> statisticDao;
+
     @Bean
     public Scanner scanner() {
         return new Scanner(System.in);
@@ -51,6 +57,16 @@ public class SpringConfig {
         return new MaterialCommand(materialDao, scanner());
     }
 
+    @Bean
+    public CrudCommand<Storage, Integer> storageCommand() {
+        return new StorageCommand(storageDao, socksDao,statisticDao, scanner());
+    }
+
+    @Bean
+    public CrudCommand<Statistic, Integer> statisticCommand() {
+        return new StatisticCommand(statisticDao, storageDao, scanner());
+    }
+
     @Bean(name = "commands")
     public Map<String, Command> commands() {
         Map<String, Command> commands = new HashMap<>();
@@ -59,6 +75,8 @@ public class SpringConfig {
         commands.put("socks", socksCommand());
         commands.put("material", materialCommand());
         commands.put("manufacture", manufactureCommand());
+        commands.put("storage", storageCommand());
+        commands.put("statistic", statisticCommand());
 
         return commands;
     }

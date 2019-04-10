@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Program {
-
+    //log4J or slf4j use 'info':  for debugging
     static Map<String, Command> commands;
 
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(org.courses.cli.SpringConfig.class);
-        commands = (Map<String, Command>)context.getBean("commands");
+        commands = (Map<String, Command>) context.getBean("commands");
         Scanner scanner = context.getBean(Scanner.class);
 
         greetUser();
@@ -36,11 +36,9 @@ public class Program {
 
         try {
             executeCommand(commandName, params);
-        }
-        catch (CommandFormatException e) {
+        } catch (CommandFormatException e) {
             System.out.println(String.format("%s has some invalid arguments", commandName));
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             System.out.println(String.format("Unknown command %s", commandName));
         }
     }

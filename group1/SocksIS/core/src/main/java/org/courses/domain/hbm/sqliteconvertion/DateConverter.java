@@ -20,7 +20,7 @@ public class DateConverter implements AttributeConverter<DateTime, String> {
 
     @Override
     public DateTime convertToEntityAttribute(String s) {
-        if (null == s || "" == s)
+        if (null == s || "".equals(s))
             return null;
 
         return DateTime.parse(s);

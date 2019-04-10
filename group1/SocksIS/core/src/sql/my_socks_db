@@ -1,0 +1,54 @@
+BEGIN TRANSACTION;
+CREATE TABLE `Socks`
+(
+  `id`          INTEGER PRIMARY KEY AUTOINCREMENT,
+  `size`        REAL    NOT NULL,
+  `colour`      INTEGER NOT NULL,
+  `type`        INTEGER NOT NULL,
+  `manufacture` INTEGER NOT NULL,
+  FOREIGN KEY (`manufacture`) REFERENCES `Manufacture` (`id`),
+  FOREIGN KEY (`type`) REFERENCES `Type` (`id`)
+);
+CREATE TABLE `Type`
+(
+  `id`   INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL UNIQUE
+);
+CREATE TABLE `Manufacture`
+(
+  `id`   INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL UNIQUE
+);
+CREATE TABLE `Material`
+(
+  `id`   INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT NOT NULL UNIQUE
+);
+CREATE TABLE `SocksMaterial`
+(
+  `id`         INTEGER PRIMARY KEY AUTOINCREMENT,
+  `socks`      INTEGER NOT NULL,
+  `material`   INTEGER NOT NULL,
+  `percentage` INTEGER NOT NULL,
+  FOREIGN KEY (`material`) REFERENCES `Material` (`id`),
+  FOREIGN KEY (`socks`) REFERENCES `Socks` (`id`)
+);
+
+CREATE TABLE `Storage`
+(
+  `id`      INTEGER PRIMARY KEY AUTOINCREMENT,
+  `socks`   INTEGER NOT NULL,
+  `added`   TEXT    NOT NULL,
+  `retired` TEXT,
+  FOREIGN KEY (`socks`) REFERENCES `Socks` (`id`)
+);
+
+CREATE TABLE `StatisticWearing`
+(
+  `id`          INTEGER PRIMARY KEY AUTOINCREMENT,
+  `storage`     INTEGER NOT NULL,
+  `start_using` TEXT    NOT NULL,
+  `stop_using`  TEXT,
+  FOREIGN KEY (`storage`) REFERENCES `Storage` (`id`)
+);
+COMMIT;

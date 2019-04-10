@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "SocksMaterial")
 public class Composition {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

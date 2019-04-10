@@ -7,8 +7,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//log4J or slf4j use 'info'
-
 @Entity
 @Table(name = "Socks")
 public class Socks {
@@ -34,7 +32,7 @@ public class Socks {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "socks")
-    private List<Composition> composition = new ArrayList<>();
+    private List<Composition> compositions = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -56,13 +54,12 @@ public class Socks {
         return colour;
     }
 
-    public String getStrColour() {
-        String builder = "[ " +
+    private String getStrColour() {
+        return "[ " +
                 "r=" + colour.getRed() + " " +
                 "g=" + colour.getGreen() + " " +
                 "b=" + colour.getBlue() +
                 " ]";
-        return builder;
     }
 
     public void setColour(Color colour) {
@@ -86,13 +83,13 @@ public class Socks {
     }
 
     public List<Composition> getCompositions() {
-        return composition;
+        return compositions;
     }
 
-    public String getStrCompositions() {
+    private String getStrCompositions() {
         StringBuilder builder = new StringBuilder();
         builder.append("{ ");
-        for (Composition c : composition) {
+        for (Composition c : compositions) {
             builder
                     .append(c)
                     .append(" ");
@@ -102,25 +99,25 @@ public class Socks {
     }
 
     public void setCompositions(List<Composition> composition) {
-        this.composition = composition;
+        this.compositions = composition;
     }
 
     public void add(Composition c) {
-        if(composition == null){
-            composition = new ArrayList<>();
+        if (compositions == null) {
+            compositions = new ArrayList<>();
         }
-        composition.add(c);
+        compositions.add(c);
         c.setSocks(this);
     }
 
     @Override
     public String toString() {
-        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s, composition: %s }",
-                this.getId(),
+        return String.format("Socks { id: %d, colour: %s, size: %.1f, type: %s, manufacture: %s, compositions: %s }",
+                this.id,
                 this.getStrColour(),
-                this.getSize(),
-                this.getType().getName(),
-                this.getManufacture().getName(),
+                this.size,
+                this.type.getName(),
+                this.manufacture.getName(),
                 this.getStrCompositions());
     }
 }

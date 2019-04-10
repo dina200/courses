@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "Storage")
 public class Storage {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -70,11 +70,11 @@ public class Storage {
 
     @Override
     public String toString() {
-        return String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s, usage: %s }",
+        return String.format("Storage { id: %d, socksId: %d, added: %s, retired: %s, usage: %d }",
                 id,
                 socks.getId(),
-                added.toString("yyyy-MM-dd"),
-                retired.toString("yyyy-MM-dd"),
+                added.toString(),
+                retired != null ? retired.toString() : null,
                 usage);
     }
 }

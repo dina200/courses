@@ -4,14 +4,15 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Manufacture")
-public class Manufacture{
+public class Manufacture {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     protected int id;
 
     @Column(name = "name")
     protected String name;
+
     public int getId() {
         return id;
     }
