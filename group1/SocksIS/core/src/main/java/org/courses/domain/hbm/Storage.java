@@ -13,7 +13,7 @@ public class Storage {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "socks")
     private Socks socks;
 

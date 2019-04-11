@@ -62,7 +62,7 @@ public class SpringConfig {
 
     @Bean
     public CrudCommand<Storage, Integer> storageCommand() {
-        return new StorageCommand(storageDao, socksDao, statisticDao, scanner());
+        return new StorageCommand(storageDao, socksDao, scanner());
     }
 
     @Bean

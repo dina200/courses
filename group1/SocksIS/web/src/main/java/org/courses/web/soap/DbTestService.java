@@ -2,7 +2,6 @@ package org.courses.web.soap;
 
 import org.courses.data.DAO.DAO;
 
-
 import javax.jws.WebService;
 import java.util.Collection;
 
@@ -17,8 +16,8 @@ public class DbTestService<Entity, Key> implements TestService<Entity, Key> {
     }
 
     DAO<Entity, Key> dao;
-    public DbTestService(DAO<Entity, Key> dao)
-    {
+
+    public DbTestService(DAO<Entity, Key> dao) {
         this.dao = dao;
     }
 

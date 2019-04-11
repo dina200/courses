@@ -1,6 +1,5 @@
 package org.courses.cli.commands.jdbc;
 
-import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Statistic;
 import org.courses.domain.hbm.Storage;

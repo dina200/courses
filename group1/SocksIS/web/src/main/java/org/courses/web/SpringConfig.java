@@ -15,16 +15,19 @@ import javax.xml.ws.Endpoint;
 @ImportResource("classpath:META-INF/cxf/cxf.xml")
 public class SpringConfig {
     @Autowired
+    DAO<Socks, Integer> socksDao;
+
+    @Autowired
     DAO<Type, Integer> typeDao;
 
     @Autowired
-    DAO<Socks, Integer> socksDao;
+    DAO<Manufacture, Integer> manufactureDao;
 
     @Autowired
     DAO<Material, Integer> materialDao;
 
     @Autowired
-    DAO<Manufacture, Integer> manufactureDao;
+    DAO<Composition, Integer> compositionDao;
 
     @Autowired
     DAO<Storage, Integer> storageDao;
@@ -32,23 +35,93 @@ public class SpringConfig {
     @Autowired
     DAO<Statistic, Integer> statisticDao;
 
-    @Autowired
-    DAO<Composition, Integer> compositionDao;
+
+    @Bean
+    public org.courses.web.soap.TestService<Type, Integer> soapTypeService() {
+        return new DbTestService<>(typeDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Material, Integer> soapMaterialService() {
+        return new DbTestService<>(materialDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Manufacture, Integer> soapManufactureService() {
+        return new DbTestService<>(manufactureDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Socks, Integer> soapSocksService() {
+        return new DbTestService<>(socksDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Composition, Integer> soapCompositionService() {
+        return new DbTestService<>(compositionDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Storage, Integer> soapStorageService() {
+        return new DbTestService<>(storageDao);
+    }
+
+    @Bean
+    public org.courses.web.soap.TestService<Statistic, Integer> soapStatisticService() {
+        return new DbTestService<>(statisticDao);
+    }
 
     @Bean
     public SpringBus cxf() {
         return new SpringBus();
     }
 
-    @Bean
-    public org.courses.web.soap.TestService<Material, Integer> soapTestService() {
-        return new DbTestService<>(materialDao);
+    @Bean(name = "type")
+    public Endpoint endpointType() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapTypeService());
+        endpoint.publish("/type");
+        return endpoint;
     }
 
-    @Bean
-    public Endpoint endpoint() {
-        EndpointImpl endpoint = new EndpointImpl(cxf(), soapTestService());
-        endpoint.publish("/testservice");
+    @Bean(name = "material")
+    public Endpoint endpointMaterial() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapMaterialService());
+        endpoint.publish("/material");
+        return endpoint;
+    }
+
+    @Bean(name = "manufacture")
+    public Endpoint endpointManufacture() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapManufactureService());
+        endpoint.publish("/manufacture");
+        return endpoint;
+    }
+
+    @Bean(name = "socks")
+    public Endpoint endpointSocks() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapSocksService());
+        endpoint.publish("/socks");
+        return endpoint;
+    }
+
+    @Bean(name = "composition")
+    public Endpoint endpointComposition() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapCompositionService());
+        endpoint.publish("/composition");
+        return endpoint;
+    }
+
+    @Bean(name = "storage")
+    public Endpoint endpointStorage() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapStorageService());
+        endpoint.publish("/storage");
+        return endpoint;
+    }
+
+    @Bean(name = "statistic")
+    public Endpoint endpointStatistic() {
+        EndpointImpl endpoint = new EndpointImpl(cxf(), soapStatisticService());
+        endpoint.publish("/statistic");
         return endpoint;
     }
 

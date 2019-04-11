@@ -1,27 +1,22 @@
 package org.courses.cli.commands.jdbc;
 
-import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Socks;
 import org.courses.domain.hbm.Statistic;
 import org.courses.domain.hbm.Storage;
 import org.joda.time.DateTime;
 
-import java.util.List;
 import java.util.Scanner;
 
 public class StorageCommand extends CrudCommand<Storage, Integer> {
     private Scanner scanner;
     private DAO<Socks, Integer> socksDao;
-    private DAO<Statistic, Integer> statisticDao;
 
     public StorageCommand(DAO<Storage, Integer> dao,
                           DAO<Socks, Integer> socksDao,
-                          DAO<Statistic, Integer> statisticDao,
                           Scanner scanner) {
         super(dao, Storage.class);
         this.socksDao = socksDao;
-        this.statisticDao = statisticDao;
         this.scanner = scanner;
     }
 

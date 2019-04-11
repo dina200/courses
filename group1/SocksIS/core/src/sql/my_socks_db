@@ -2,10 +2,12 @@ BEGIN TRANSACTION;
 CREATE TABLE `Socks`
 (
   `id`          INTEGER PRIMARY KEY AUTOINCREMENT,
+  `storage`     INTEGER,
   `size`        REAL    NOT NULL,
   `colour`      INTEGER NOT NULL,
   `type`        INTEGER NOT NULL,
   `manufacture` INTEGER NOT NULL,
+  FOREIGN KEY (`storage`) REFERENCES `Storage` (`id`),
   FOREIGN KEY (`manufacture`) REFERENCES `Manufacture` (`id`),
   FOREIGN KEY (`type`) REFERENCES `Type` (`id`)
 );
@@ -49,6 +51,7 @@ CREATE TABLE `StatisticWearing`
   `storage`     INTEGER NOT NULL,
   `start_using` TEXT    NOT NULL,
   `stop_using`  TEXT,
+  `usageHrs`    REAL,
   FOREIGN KEY (`storage`) REFERENCES `Storage` (`id`)
 );
 COMMIT;

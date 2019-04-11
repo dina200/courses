@@ -19,10 +19,8 @@ public class SocksDao extends BaseDao<Socks, Integer> {
         Session session = factory.getCurrentSession();
         return session
                 .createQuery("from Socks " +
-                        "where id = :id " +
-                        "or type like :filter")
+                        "where id = :id ")
                 .setParameter("id", Int32.validate(filter))
-                .setParameter("filter", String.format("%%%s%%", filter))
                 .list();
     }
 }
