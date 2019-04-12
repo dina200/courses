@@ -16,7 +16,7 @@ CREATE TABLE `StatisticWearing`
         );
         */
 @Entity
-@Table(name = "StatisticWearing")
+@Table(name = "StatisticWearing")//rest ResSharp
 public class Statistic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

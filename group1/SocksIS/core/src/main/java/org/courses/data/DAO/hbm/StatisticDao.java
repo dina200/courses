@@ -18,7 +18,7 @@ public class StatisticDao extends BaseDao<Statistic, Integer> {
     public Collection<Statistic> find(String filter) {
         Session session = factory.getCurrentSession();
         return session
-                .createQuery("from StatisticWearing " +
+                .createQuery("from Statistic " +
                         "where id = :id ")
                 .setParameter("id", Int32.validate(filter))
                 .list();

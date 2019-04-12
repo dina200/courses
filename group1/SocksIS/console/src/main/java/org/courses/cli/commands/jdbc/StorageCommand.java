@@ -1,8 +1,8 @@
 package org.courses.cli.commands.jdbc;
 
+import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Socks;
-import org.courses.domain.hbm.Statistic;
 import org.courses.domain.hbm.Storage;
 import org.joda.time.DateTime;
 
@@ -45,9 +45,9 @@ public class StorageCommand extends CrudCommand<Storage, Integer> {
     private void setTimeRetired(Storage entity) {
         System.out.print("\tset time retired? (y/n) ");
         if (scanner.hasNext()) {
-            String answer = scanner.nextLine();
+            String answer = scanner.next();
             if (answer.equals("y")) {
-                entity.setAdded(new DateTime());
+                entity.setRetired(new DateTime());
             }
         }
     }

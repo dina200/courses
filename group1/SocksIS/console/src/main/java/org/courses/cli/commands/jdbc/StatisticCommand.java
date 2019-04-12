@@ -1,5 +1,6 @@
 package org.courses.cli.commands.jdbc;
 
+import org.courses.cli.commands.CommandFormatException;
 import org.courses.data.DAO.DAO;
 import org.courses.domain.hbm.Statistic;
 import org.courses.domain.hbm.Storage;
@@ -30,7 +31,7 @@ public class StatisticCommand extends CrudCommand<Statistic, Integer> {
             statistic.setStorage(storageDao.read(storage));
         }
 
-        System.out.print("\tset time stop_using? (y/n)");
+        System.out.print("\tset time stop_using? (y/n) ");
         if (scanner.hasNext()) {
             String answer = scanner.next();
             if (answer.equals("y")) {
