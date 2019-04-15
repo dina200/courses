@@ -4,7 +4,7 @@ import javax.jws.WebService;
 import java.util.Collection;
 
 @WebService
-public interface TestService<Entity, Key> {
+public interface TestService <Entity, Key> {
     boolean checkDB(String connectionString);
 
     void save(Collection<Entity> entity);

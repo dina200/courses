@@ -1,6 +1,7 @@
 package org.courses.web.soap;
 
 import org.courses.data.DAO.DAO;
+import org.courses.domain.hbm.Material;
 
 import javax.jws.WebService;
 import java.util.Collection;
@@ -9,40 +10,34 @@ import java.util.Collection;
         endpointInterface = "org.courses.web.soap.TestService",
         serviceName = "TestService"
 )
-public class DbTestService<Entity, Key> implements TestService<Entity, Key> {
-    @Override
+public class DbMaterialService implements TestService<Material, Integer> {
     public boolean checkDB(String connectionString) {
         return false;
     }
 
-    DAO<Entity, Key> dao;
+    DAO<Material, Integer> dao;
 
-    public DbTestService(DAO<Entity, Key> dao) {
+    public DbMaterialService(DAO<Material, Integer> dao) {
         this.dao = dao;
     }
-
     @Override
-    public void save(Collection<Entity> entity) {
+    public void save(Collection<Material> entity) {
         dao.save(entity);
     }
-
     @Override
-    public Entity read(Key id) {
+    public Material read(Integer id) {
         return dao.read(id);
     }
-
     @Override
-    public Collection<Entity> readAll() {
+    public Collection<Material> readAll() {
         return dao.readAll();
     }
-
     @Override
-    public Collection<Entity> find(String filter) {
+    public Collection<Material> find(String filter) {
         return dao.find(filter);
     }
-
     @Override
-    public void delete(Key id) {
+    public void delete(Integer id) {
         dao.delete(id);
     }
 }
