@@ -21,12 +21,12 @@ public class SpringConfig {
     DAO<Material, Integer> materialDao;
 
     @Bean
-    public org.courses.web.soap.TestService<Type, Integer> soapTypeService() {
+    public TypeService soapTypeService() {
         return new DbTypeService(typeDao);
     }
 
     @Bean
-    public org.courses.web.soap.TestService<Material, Integer> soapMaterialService() {
+    public MaterialService soapMaterialService() {
         return new DbMaterialService(materialDao);
     }
 
@@ -35,14 +35,14 @@ public class SpringConfig {
         return new SpringBus();
     }
 
-    @Bean(name = "type")
+    @Bean
     public Endpoint endpointType() {
         EndpointImpl endpoint = new EndpointImpl(cxf(), soapTypeService());
         endpoint.publish("/type");
         return endpoint;
     }
 
-    @Bean(name = "material")
+    @Bean
     public Endpoint endpointMaterial() {
         EndpointImpl endpoint = new EndpointImpl(cxf(), soapMaterialService());
         endpoint.publish("/material");
@@ -69,27 +69,27 @@ public class SpringConfig {
 //    DAO<Statistic, Integer> statisticDao;
 
 //    @Bean
-//    public org.courses.web.soap.TestService<Manufacture, Integer> soapManufactureService() {
+//    public org.courses.web.soap.TypeService<Manufacture, Integer> soapManufactureService() {
 //        return new DbTypeService(manufactureDao);
 //    }
 //
 //    @Bean
-//    public org.courses.web.soap.TestService<Socks, Integer> soapSocksService() {
+//    public org.courses.web.soap.TypeService<Socks, Integer> soapSocksService() {
 //        return new DbTypeService(socksDao);
 //    }
 //
 //    @Bean
-//    public org.courses.web.soap.TestService<Composition, Integer> soapCompositionService() {
+//    public org.courses.web.soap.TypeService<Composition, Integer> soapCompositionService() {
 //        return new DbTypeService(compositionDao);
 //    }
 //
 //    @Bean
-//    public org.courses.web.soap.TestService<Storage, Integer> soapStorageService() {
+//    public org.courses.web.soap.TypeService<Storage, Integer> soapStorageService() {
 //        return new DbTypeService(storageDao);
 //    }
 //
 //    @Bean
-//    public org.courses.web.soap.TestService<Statistic, Integer> soapStatisticService() {
+//    public org.courses.web.soap.TypeService<Statistic, Integer> soapStatisticService() {
 //        return new DbTypeService(statisticDao);
 //    }
 

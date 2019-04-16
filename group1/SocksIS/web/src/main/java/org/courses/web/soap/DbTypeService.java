@@ -7,10 +7,10 @@ import javax.jws.WebService;
 import java.util.Collection;
 
 @WebService(
-        endpointInterface = "org.courses.web.soap.TestService",
-        serviceName = "TestService"
+        endpointInterface = "org.courses.web.soap.TypeService",
+        serviceName = "TypeService"
 )
-public class DbTypeService implements TestService<Type, Integer> {
+public class DbTypeService implements TypeService {
 
     public boolean checkDB(String connectionString) {
         return false;
